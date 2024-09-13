@@ -1,6 +1,8 @@
-import React from 'react';
+import React from "react";
 
-const ProductCategoryRow = ({category}) => {
+const ProductCategoryRow = ({ category }) => {
+  console.log("category: ", category);
+
   return (
     <tr>
       <th colSpan={2}>{category}</th>
