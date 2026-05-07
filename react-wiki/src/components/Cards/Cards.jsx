@@ -16,6 +16,7 @@ const Cards = ({ page, results = [] }) => {
         >
           <Link
             to={`${page}/${card.id}`}
+            state={{ from: location.pathname }}
             className="text-decoration-none text-dark"
           >
             <div className="card">

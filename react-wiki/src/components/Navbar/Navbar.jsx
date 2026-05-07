@@ -7,10 +7,14 @@ const Navbar = () => {
   const collapseRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  const currentPath = location.pathname.includes("/character")
+    ? location.state?.from
+    : location.pathname;
+
   // Close navbar on route change (mobile UX fix)
   useEffect(() => {
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [currentPath]);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -19,7 +23,6 @@ const Navbar = () => {
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container">
-
         {/* Logo */}
         <Link to="/" className="navbar-brand fw-bold fs-4">
           Rick & Morty <span className="text-primary">WiKi</span>
@@ -44,35 +47,33 @@ const Navbar = () => {
           }`}
         >
           <div className="navbar-nav fs-5 gap-lg-3">
-
             <NavLink
               to="/"
               end
-              className={({ isActive }) =>
-                "nav-link px-2 " + (isActive ? "active" : "")
-              }
+              className={`nav-link ${
+                currentPath === "/" ? "active" : ""
+              }`}
             >
               Characters
             </NavLink>
 
             <NavLink
               to="/episodes"
-              className={({ isActive }) =>
-                "nav-link px-2 " + (isActive ? "active" : "")
-              }
+              className={`nav-link ${
+                currentPath === "/episodes" ? "active" : ""
+              }`}
             >
               Episodes
             </NavLink>
 
             <NavLink
               to="/location"
-              className={({ isActive }) =>
-                "nav-link px-2 " + (isActive ? "active" : "")
-              }
+              className={`nav-link ${
+                currentPath === "/location" ? "active" : ""
+              }`}
             >
               Location
             </NavLink>
-
           </div>
         </div>
       </div>
