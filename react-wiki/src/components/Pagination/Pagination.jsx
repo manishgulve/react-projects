@@ -1,93 +1,34 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
-const Pagination = ({ pageNumber, setPageNumber, info }) => {
-  const totalPages = info?.pages || 0;
+const PaginationComponent = ({ pageNumber, setPageNumber, info }) => {
+  const totalPages = info?.pages || 1;
 
-  const goToPage = (page) => {
-    setPageNumber(page);
+  const handleChange = (event, value) => {
+    setPageNumber(value);
+
+    // optional scroll to top
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
-
-  const goNext = () => {
-    if (pageNumber < totalPages) {
-      setPageNumber((p) => p + 1);
-    }
-  };
-
-  const goPrev = () => {
-    if (pageNumber > 1) {
-      setPageNumber((p) => p - 1);
-    }
-  };
-
-  // show first 5 pages
-  const firstPages = Array.from(
-    { length: Math.min(5, totalPages) },
-    (_, i) => i + 1
-  );
 
   return (
-    <nav className="my-4">
-      <ul className="pagination justify-content-center">
-
-        {/* Previous */}
-        <li className={`page-item ${pageNumber === 1 ? "disabled" : ""}`}>
-          <button className="page-link" onClick={goPrev}>
-            Previous
-          </button>
-        </li>
-
-        {/* First 5 pages */}
-        {firstPages.map((page) => (
-          <li
-            key={page}
-            className={`page-item ${pageNumber === page ? "active" : ""}`}
-          >
-            <button
-              className="page-link"
-              onClick={() => goToPage(page)}
-            >
-              {page}
-            </button>
-          </li>
-        ))}
-
-        {/* Ellipsis */}
-        {totalPages > 6 && (
-          <li className="page-item disabled">
-            <span className="page-link">...</span>
-          </li>
-        )}
-
-        {/* Last Page */}
-        {totalPages > 5 && (
-          <li
-            className={`page-item ${
-              pageNumber === totalPages ? "active" : ""
-            }`}
-          >
-            <button
-              className="page-link"
-              onClick={() => goToPage(totalPages)}
-            >
-              {totalPages}
-            </button>
-          </li>
-        )}
-
-        {/* Next */}
-        <li
-          className={`page-item ${
-            pageNumber === totalPages ? "disabled" : ""
-          }`}
-        >
-          <button className="page-link" onClick={goNext}>
-            Next
-          </button>
-        </li>
-
-      </ul>
-    </nav>
+    <Stack spacing={2} alignItems="center" my={4}>
+      <Pagination
+        count={totalPages}
+        page={pageNumber}
+        onChange={handleChange}
+        color="primary"
+        shape="rounded"
+        size="large"
+        siblingCount={1}
+        boundaryCount={1}
+      />
+    </Stack>
   );
 };
 
-export default Pagination;
+export default PaginationComponent;

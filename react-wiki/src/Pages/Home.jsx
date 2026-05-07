@@ -1,13 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-
-
 import { useEffect, useState } from "react";
 import Search from "../components/Search/Search";
 import Filter from "../components/Filter/Filter";
 import Cards from "../components/Cards/Cards";
-import Pagination from "../components/Pagination/Pagination";
+import PaginationComponent from "../components/Pagination/Pagination";
 
 const Home = () => {
   const [fetchData, setFetchData] = useState([]);
@@ -43,12 +41,10 @@ const Home = () => {
   return (
     <div className="App">
       <div className="container my-4">
-        <h1 className="mb-4 text-center fw-bold">
-            Characters
-        </h1>
+        <h1 className="mb-4 text-center fw-bold">Characters</h1>
         <Search setSearch={setSearch} setPageNumber={setPageNumber} />
         <div className="row">
-          <div className="col-lg-3">
+          <div className="mb-4 col-lg-3">
             <Filter
               setStatus={setStatus}
               setSpecies={setSpecies}
@@ -59,17 +55,21 @@ const Home = () => {
             />
           </div>
           <div className="col-lg-9">
-            {loading ? <h3>Loading.....</h3> : <Cards page="/character" results={results} />}
+            {loading ? (
+              <h3>Loading.....</h3>
+            ) : (
+              <Cards page="/character" results={results} />
+            )}
+            <PaginationComponent
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              info={info}
+            />
           </div>
         </div>
-        <Pagination
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          info={info}
-        />
       </div>
     </div>
   );
-}
+};
 
 export default Home;

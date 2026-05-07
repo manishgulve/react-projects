@@ -48,7 +48,7 @@ const Episodes = () => {
           Air Date: <span className="text-primary">{air_date}</span>
         </h5>
         <div className="row">
-          <div className="col-lg-3">
+          <div className="mb-4 col-lg-3">
             <h3 className="fw-bold">Pick Episode</h3>
             <InputGroup name="Episode" changeID={setID} total={51} />
           </div>
