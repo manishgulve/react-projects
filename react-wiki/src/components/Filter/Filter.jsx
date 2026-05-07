@@ -16,7 +16,7 @@ const Filter = ({
   };
   return (
     <div>
-      <div className="d-lg-flex d-md-flex d-block justify-content-lg-between justify-content-md-between justify-content-center">
+      <div className="d-flex justify-content-between">
         <h3 className="fw-bold">Filter</h3>
         <button
           className="mb-4 btn btn-outline-danger"
