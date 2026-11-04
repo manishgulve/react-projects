@@ -4,11 +4,7 @@ const accordionData = [
   {
     id: 1,
     title: "Status",
-    content: [
-      "Alive",
-      "Dead",
-      "Unknown"
-    ],
+    content: ["Alive", "Dead", "Unknown"],
   },
   {
     id: 2,
@@ -22,24 +18,38 @@ const accordionData = [
       "Unknown",
       "Animal",
       "Disease",
-      "",
-      "",
-      ""
+      "Robot",
+      "Cronenberg",
+      "Planet",
     ],
   },
   {
     id: 3,
     title: "Gender",
-    content: [
-      "Female",
-      "Male",
-      "Genderless",
-      "Unknown"
-    ],
+    content: ["Female", "Male", "Genderless", "Unknown"],
   },
 ];
 
-const Accordion = () => {
+const Accordion = ({
+  setStatus,
+  setGender,
+  setSpecies,
+  status,
+  gender,
+  species,
+}) => {
+  const handleFilter = (title, value) => {
+    if (title === "Status") {
+      setStatus(value);
+    }
+    if (title === "Gender") {
+      setGender(value);
+    }
+    if (title === "Species") {
+      setSpecies(value);
+    }
+    console.log("filter value", value);
+  };
   return (
     <div className="accordion" id="accordionPanelsStayOpenExample">
       {accordionData.map((item, index) => {
@@ -56,7 +66,7 @@ const Accordion = () => {
                 aria-expanded={index === 0 ? "true" : "false"}
                 aria-controls={collapseId}
               >
-                {item.title}
+                {item?.title}
               </button>
             </h2>
 
@@ -67,7 +77,33 @@ const Accordion = () => {
               }`}
             >
               <div className="accordion-body">
-                <strong>{item.content}</strong>
+                {item.content
+                  .filter((val) => val !== "") // remove empty values
+                  .map((value, i) => (
+                    <div className="form-check" key={i}>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name={item?.title} // group by section
+                        id={`${item?.title}-${i}`}
+                        value={value}
+                        checked={
+                          item.title === "Status"
+                          ? status  === value
+                          : item.title === "Gender"
+                          ? gender === value
+                          : species === value
+                          }
+                        onChange={() => handleFilter(item?.title, value)}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={`${item?.title}-${i}`}
+                      >
+                        {value}
+                      </label>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

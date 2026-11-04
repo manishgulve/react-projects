@@ -1,13 +1,41 @@
-import React from 'react';
-import Accordion from './Accordion/Accordion';
+import React from "react";
+import Accordion from "./Accordion/Accordion";
 
-const Filter = () => {
+const Filter = ({
+  setStatus,
+  setGender,
+  setSpecies,
+  status,
+  gender,
+  species,
+}) => {
+  const handleClearFilter = () => {
+    setStatus("");
+    setGender("");
+    setSpecies("");
+  };
   return (
     <div>
-        <h3 className='fw-bold'>Filter</h3>
-        <Accordion />
-    </div>
-  )
-}
+      <div className="d-flex justify-content-between">
+        <h3 className="fw-bold">Filter</h3>
+        <button
+          className="mb-4 btn btn-outline-danger"
+          onClick={handleClearFilter}
+        >
+          Clear Filter
+        </button>
+      </div>
 
-export default Filter
+      <Accordion
+        setStatus={setStatus}
+        setSpecies={setSpecies}
+        setGender={setGender}
+        status={status}
+        gender={gender}
+        species={species}
+      />
+    </div>
+  );
+};
+
+export default Filter;
